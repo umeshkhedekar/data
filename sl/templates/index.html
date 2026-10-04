@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment Manager</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>💰 Payment Manager</h1>
+
+    <p class="subtitle">
+        Income & Expense Management System
+    </p>
+
+    <!-- MESSAGE -->
+    <div id="message"></div>
+
+
+    <!-- =========================
+         ADD PAYMENT
+    ========================== -->
+
+    <h2>➕ Add Payment</h2>
+
+    <form id="paymentForm">
+
+        <!-- NAME -->
+        <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter Name"
+            required
+        >
+
+
+        <!-- DESCRIPTION -->
+        <input
+            type="text"
+            id="description"
+            name="description"
+            placeholder="Enter Description"
+        >
+
+
+        <!-- LOCATION -->
+        <input
+            type="text"
+            id="location"
+            name="location"
+            placeholder="Enter Location"
+        >
+
+
+        <!-- AMOUNT -->
+        <input
+            type="number"
+            id="amount"
+            name="amount"
+            placeholder="Enter Amount"
+            step="0.01"
+            min="0"
+            required
+        >
+
+
+        <!-- PAYMENT TYPE -->
+        <select
+            id="paymentType"
+            name="paymentType"
+            required
+        >
+
+            <option value="">
+                Select Payment Type
+            </option>
+
+            <option value="Income">
+                Income
+            </option>
+
+            <option value="Expense">
+                Expense
+            </option>
+
+        </select>
+
+
+        <!-- PAYMENT MODE -->
+        <select
+            id="paymentMode"
+            name="paymentMode"
+            required
+        >
+
+            <option value="">
+                Select Payment Mode
+            </option>
+
+            <option value="Cash">
+                Cash
+            </option>
+
+            <option value="UPI">
+                UPI
+            </option>
+
+            <option value="Bank">
+                Bank
+            </option>
+
+        </select>
+
+
+        <!-- PAYMENT DATE -->
+        <input
+            type="date"
+            id="paymentDate"
+            name="paymentDate"
+            required
+        >
+
+
+        <!-- BUTTONS -->
+        <div class="form-buttons">
+
+            <button type="submit">
+                💾 Save Payment
+            </button>
+
+            <button
+                type="button"
+                class="reset-btn"
+                onclick="resetForm()"
+            >
+                🔄 Reset
+            </button>
+
+        </div>
+
+    </form>
+
+
+    <!-- =========================
+         SUMMARY
+    ========================== -->
+
+    <h2>📊 Payment Summary</h2>
+
+    <div class="summary">
+
+        <div class="summary-box income-box">
+
+            <h3>Total Income</h3>
+
+            <h2 id="totalIncome">
+                ₹0.00
+            </h2>
+
+        </div>
+
+
+        <div class="summary-box expense-box">
+
+            <h3>Total Expense</h3>
+
+            <h2 id="totalExpense">
+                ₹0.00
+            </h2>
+
+        </div>
+
+
+        <div class="summary-box balance-box">
+
+            <h3>Balance</h3>
+
+            <h2 id="balance">
+                ₹0.00
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         SEARCH
+    ========================== -->
+
+    <h2>🔍 Search Payments</h2>
+
+    <div class="action-bar">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search Name, Description, Location or Payment Mode..."
+            onkeyup="searchPayments()"
+        >
+
+
+        <button
+            type="button"
+            onclick="searchPayments()"
+        >
+            🔍 Search
+        </button>
+
+
+        <button
+            type="button"
+            onclick="loadPayments()"
+        >
+            📋 Show All
+        </button>
+
+
+        <button
+            type="button"
+            onclick="downloadPayments()"
+        >
+            ⬇️ Download
+        </button>
+
+
+        <button
+            type="button"
+            onclick="printPayments()"
+        >
+            🖨️ Print
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         PAYMENT TABLE
+    ========================== -->
+
+    <h2>📋 All Payments</h2>
+
+    <div class="table-container">
+
+        <table id="paymentTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Name</th>
+
+                    <th>Description</th>
+
+                    <th>Location</th>
+
+                    <th>Amount</th>
+
+                    <th>Type</th>
+
+                    <th>Payment Mode</th>
+
+                    <th>Date</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="paymentTableBody">
+
+                <tr>
+
+                    <td colspan="9">
+                        Loading...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- =========================
+         BOTTOM BUTTONS
+    ========================== -->
+
+    <div class="bottom-actions">
+
+        <button
+            type="button"
+            onclick="loadPayments()"
+        >
+            🔄 Refresh
+        </button>
+
+
+        <button
+            type="button"
+            onclick="downloadPayments()"
+        >
+            ⬇️ Download
+        </button>
+
+
+        <button
+            type="button"
+            onclick="printPayments()"
+        >
+            🖨️ Print
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     UPDATE MODAL
+================================================== -->
+
+<div
+    id="updateModal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+        <h2>
+            ✏️ Update Payment
+        </h2>
+
+
+        <!-- HIDDEN ID -->
+
+        <input
+            type="hidden"
+            id="updateId"
+        >
+
+
+        <!-- NAME -->
+
+        <label>
+            Name
+        </label>
+
+        <input
+            type="text"
+            id="updateName"
+            placeholder="Enter Name"
+        >
+
+
+        <!-- DESCRIPTION -->
+
+        <label>
+            Description
+        </label>
+
+        <input
+            type="text"
+            id="updateDescription"
+            placeholder="Enter Description"
+        >
+
+
+        <!-- LOCATION -->
+
+        <label>
+            Location
+        </label>
+
+        <input
+            type="text"
+            id="updateLocation"
+            placeholder="Enter Location"
+        >
+
+
+        <!-- AMOUNT -->
+
+        <label>
+            Amount
+        </label>
+
+        <input
+            type="number"
+            id="updateAmount"
+            placeholder="Enter Amount"
+            step="0.01"
+            min="0"
+        >
+
+
+        <!-- PAYMENT TYPE -->
+
+        <label>
+            Payment Type
+        </label>
+
+        <select id="updatePaymentType">
+
+            <option value="Income">
+                Income
+            </option>
+
+            <option value="Expense">
+                Expense
+            </option>
+
+        </select>
+
+
+        <!-- PAYMENT MODE -->
+
+        <label>
+            Payment Mode
+        </label>
+
+        <select id="updatePaymentMode">
+
+            <option value="Cash">
+                Cash
+            </option>
+
+            <option value="UPI">
+                UPI
+            </option>
+
+            <option value="Bank">
+                Bank
+            </option>
+
+        </select>
+
+
+        <!-- DATE -->
+
+        <label>
+            Payment Date
+        </label>
+
+        <input
+            type="date"
+            id="updatePaymentDate"
+        >
+
+
+        <!-- MODAL BUTTONS -->
+
+        <div class="modal-buttons">
+
+            <button
+                type="button"
+                onclick="updatePayment()"
+            >
+                💾 Update
+            </button>
+
+
+            <button
+                type="button"
+                class="cancel-btn"
+                onclick="closeUpdateModal()"
+            >
+                ❌ Cancel
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>

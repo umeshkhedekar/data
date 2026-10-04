@@ -1,0 +1,464 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f4f7;
+    color: #222;
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.container {
+    width: 94%;
+    max-width: 1250px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================
+   HEADINGS
+========================================= */
+
+h1 {
+    text-align: center;
+    color: #007bff;
+    font-size: 34px;
+    margin-bottom: 8px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin: 30px 0 20px;
+}
+
+h3 {
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777;
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+#message {
+    display: none;
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 7px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#message.success {
+    display: block;
+    background: #d4edda;
+    color: #155724;
+}
+
+#message.error {
+    display: block;
+    background: #f8d7da;
+    color: #721c24;
+}
+
+
+/* =========================================
+   PAYMENT FORM
+========================================= */
+
+#paymentForm {
+    display: grid;
+    gap: 14px;
+    margin-bottom: 25px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    background: #fff;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus,
+select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.20);
+}
+
+
+/* =========================================
+   FORM BUTTONS
+========================================= */
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+/* =========================================
+   ALL BUTTONS
+========================================= */
+
+button {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 7px;
+    background: #007bff;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+.reset-btn {
+    background: #6c757d;
+}
+
+.reset-btn:hover {
+    background: #545b62;
+}
+
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.summary-box {
+    padding: 25px 15px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.summary-box h2 {
+    margin: 5px 0 0;
+}
+
+.income-box {
+    background: #d4edda;
+    color: #155724;
+}
+
+.expense-box {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.balance-box {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+
+/* =========================================
+   SEARCH / ACTION BAR
+========================================= */
+
+.action-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.action-bar input {
+    flex: 1;
+    min-width: 250px;
+}
+
+.action-bar button {
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    min-width: 950px;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 11px;
+    text-align: center;
+}
+
+th {
+    background: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+tbody tr:hover {
+    background: #eef5ff;
+}
+
+
+/* =========================================
+   TABLE ACTION BUTTONS
+========================================= */
+
+.update-btn {
+    background: #28a745;
+    padding: 8px 12px;
+    margin: 2px;
+}
+
+.update-btn:hover {
+    background: #218838;
+}
+
+.delete-btn {
+    background: #dc3545;
+    padding: 8px 12px;
+    margin: 2px;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+}
+
+
+/* =========================================
+   BOTTOM ACTIONS
+========================================= */
+
+.bottom-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal {
+    display: none;
+
+    position: fixed;
+    z-index: 1000;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.60);
+
+    padding: 20px;
+
+    overflow-y: auto;
+}
+
+
+/* =========================================
+   MODAL CONTENT
+========================================= */
+
+.modal-content {
+    width: 100%;
+    max-width: 500px;
+
+    margin: 40px auto;
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.30);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+
+/* =========================================
+   MODAL LABEL
+========================================= */
+
+.modal-content label {
+    display: block;
+    margin: 12px 0 5px;
+    font-weight: bold;
+}
+
+
+/* =========================================
+   MODAL BUTTONS
+========================================= */
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cancel-btn {
+    background: #6c757d;
+}
+
+.cancel-btn:hover {
+    background: #545b62;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .container {
+        width: 96%;
+        padding: 18px;
+        margin: 15px auto;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    h2 {
+        font-size: 21px;
+    }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    .action-bar {
+        flex-direction: column;
+    }
+
+    .action-bar input,
+    .action-bar button {
+        width: 100%;
+    }
+
+    .bottom-actions {
+        flex-direction: column;
+    }
+
+    .bottom-actions button {
+        width: 100%;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .form-buttons button {
+        width: 100%;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 450px) {
+
+    .container {
+        padding: 13px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+
+    input,
+    select {
+        font-size: 14px;
+        padding: 11px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 11px;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        font-size: 13px;
+    }
+}
