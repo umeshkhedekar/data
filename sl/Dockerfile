@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     unixodbc-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Microsoft ODBC Driver 17 इन्स्टॉल करा (अधिकृत नवीन कमांड्स)
+# Microsoft ODBC Driver 17 इन्स्टॉल करा (या अधिकृत लिंक्स आहेत)
 RUN curl https://microsoft.com | apt-key add - \
     && curl https://microsoft.com > /etc/apt/sources.list.d/mssql-release.list \
     && apt-get update \
